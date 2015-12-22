@@ -20,10 +20,12 @@ public class Decryptor implements Runnable { // producer
 	public void run(){
 		
 		RailFence rf = new RailFence();
+		//TextScorer textScorer = new TextScorer();
+		
 		String plainText = rf.decrypt(cypherText, key);
 		// get source
 		
-		Resultable r = null; // new Result(plainText, key, score); // create a result
+		Resultable r =  null; // new Result(plainText, key, score); // create a result
 		
 		try {
 			
