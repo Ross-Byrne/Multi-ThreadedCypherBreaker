@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class QuadGramMap {
 	
 	public static final int GRAM_SIZE = 4;
-	private static final String FILE_NAME = "4gram.txt";
+	private static final String FILE_NAME = "4grams.txt";
 	private Map<String, Double> map; 
 	
 	// constructor that creates an instance of FileParser, reads the 4grams.txt file into the hashmap
@@ -26,5 +26,10 @@ public class QuadGramMap {
 		} // try catch
 		
 	} // QuadGramMap()
+	
+	public Map getQuadGramMap(){
+		
+		return this.map;
+	}
 	
 } // class

@@ -10,6 +10,10 @@ public class CypherBreaker {
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	
+	// create QuadGramMap
+	// parses 4gram.txt into a HashMap
+	QuadGramMap quadGramMap = new QuadGramMap();
+	
 	public CypherBreaker(String cypherText){
 		
 		this.cypherText = cypherText;
@@ -25,7 +29,7 @@ public class CypherBreaker {
 		
 		for(int i = 2; i < cypherText.length() / 2; i++){
 			
-			new Thread(new Decryptor(queue, cypherText, i)).start();
+			new Thread(new Decryptor(queue, cypherText, i, quadGramMap.getQuadGramMap())).start();
 		}
 		
 		new Thread(new Runnable(){
@@ -39,9 +43,18 @@ public class CypherBreaker {
 
 					counter++;
 					
+					// if all threads have been processed
 					if(counter == MAX_QUEUE_SIZE){
 						
-						//queue.put(new PoisonResult); // make a poisonResult Object
+						try {
+							
+							// poison the blocking queue to stop it
+							queue.put(new PoisonResult());
+							
+						} catch (InterruptedException e) {
+							
+							e.printStackTrace();
+						} 
 					} // if
 					
 				} // synchronized()
@@ -56,7 +69,7 @@ public class CypherBreaker {
 						
 						Resultable r = queue.take();
 						
-						if(r instanceof Result){
+						if(r instanceof PoisonResult){
 							
 							return;
 						} // if
