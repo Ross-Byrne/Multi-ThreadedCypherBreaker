@@ -40,6 +40,8 @@ public class CypherBreaker {
 			public void increment(){
 				
 				synchronized(lock){
+					
+					System.out.println("Counter: " + counter);
 
 					counter++;
 					
@@ -65,12 +67,15 @@ public class CypherBreaker {
 				
 				while(!queue.isEmpty()){
 					
+					System.out.println("In while");
+					
 					try {
 						
 						Resultable r = queue.take();
 						
 						if(r instanceof PoisonResult){
 							
+							System.out.println("Poison!");
 							return;
 						} // if
 						
@@ -83,6 +88,8 @@ public class CypherBreaker {
 					} // try catch
 					
 				} // while	
+				
+				System.out.println("Finished!");
 				
 			} // run()
 			

@@ -33,6 +33,7 @@ public class Decryptor implements Runnable { // producer
 		Resultable r = new Result(plainText, key, score); // create a result
 		
 		try {
+			System.out.println("Putting result on the queue");
 			
 			// put the result on the queue
 			queue.put(r);
