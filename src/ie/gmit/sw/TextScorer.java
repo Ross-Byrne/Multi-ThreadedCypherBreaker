@@ -20,7 +20,7 @@ public class TextScorer {
 			
 			if (i + QuadGramMap.GRAM_SIZE <= text.length() -1){
 				
-				score += computeLogScore(text.substring(i, i + 4));
+				score += computeLogScore(text.substring(i, i + 4).toUpperCase());	
 				
 			} // if
 		} // for

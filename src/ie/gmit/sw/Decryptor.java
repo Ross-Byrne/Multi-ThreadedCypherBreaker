@@ -28,9 +28,10 @@ public class Decryptor implements Runnable { // producer
 		String plainText = rf.decrypt(cypherText, key);
 		
 		double score = textScorer.getScore(plainText);
-		// get source
 		
 		Resultable r = new Result(plainText, key, score); // create a result
+		
+		System.out.println(r.getScore());
 		
 		try {
 			System.out.println("Putting result on the queue");

@@ -10,7 +10,7 @@ public class Result implements Resultable {
 	public Result(String plainText, int key, double score){
 		this.plainText = plainText;
 		this.key = key;
-		this.score = key;
+		this.score = score;
 		
 	}
 	

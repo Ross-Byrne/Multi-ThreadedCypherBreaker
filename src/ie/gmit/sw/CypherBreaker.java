@@ -9,6 +9,8 @@ public class CypherBreaker {
 	
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
+	private int maxKeyLength;
+	private boolean isRunning = true;
 	
 	// create QuadGramMap
 	// parses 4gram.txt into a HashMap
@@ -27,7 +29,11 @@ public class CypherBreaker {
 		
 		// start at load of producers
 		
-		for(int i = 2; i < cypherText.length() / 2; i++){
+		maxKeyLength = cypherText.length() / 2;
+		
+		System.out.println("MaxKeyLength: " + maxKeyLength);
+		
+		for(int i = 2; i < maxKeyLength; i++){
 			
 			new Thread(new Decryptor(queue, cypherText, i, quadGramMap.getQuadGramMap())).start();
 		}
@@ -46,7 +52,7 @@ public class CypherBreaker {
 					counter++;
 					
 					// if all threads have been processed
-					if(counter == MAX_QUEUE_SIZE){
+					if(counter == maxKeyLength - 2){ // -2 because key length starts at 2
 						
 						try {
 							
@@ -65,7 +71,7 @@ public class CypherBreaker {
 			
 			public void run(){
 				
-				while(!queue.isEmpty()){
+				while(isRunning){
 					
 					System.out.println("In while");
 					
@@ -73,9 +79,16 @@ public class CypherBreaker {
 						
 						Resultable r = queue.take();
 						
+						System.out.println("Item taken");
+						
+						System.out.println("\n\nResult Score: " + r.getScore() + 
+								"\nKey: " + r.getKey() +
+								"\nPlainText: " + r.getPlainText() + "\n\n");
+						
 						if(r instanceof PoisonResult){
 							
 							System.out.println("Poison!");
+							
 							return;
 						} // if
 						
@@ -88,8 +101,6 @@ public class CypherBreaker {
 					} // try catch
 					
 				} // while	
-				
-				System.out.println("Finished!");
 				
 			} // run()
 			

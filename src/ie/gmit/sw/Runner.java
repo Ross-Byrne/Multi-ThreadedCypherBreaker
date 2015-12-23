@@ -12,7 +12,8 @@ public class Runner {
 		// or encrypted text to break
 		
 		// create the Cypher breaker which will start the program off
-		cypherBreaker = new CypherBreaker(new RailFence().encrypt("Hello There", 5));
+		cypherBreaker = new CypherBreaker(new RailFence().encrypt("HelloHowareyoudoing?", 5));
+		
 		
 		
 
