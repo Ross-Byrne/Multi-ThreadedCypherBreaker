@@ -7,7 +7,7 @@ public class CypherBreaker {
 	
 	private static final int MAX_QUEUE_SIZE = 100;
 	
-	private BlockingQueue<Resultable> queue;
+	private PriorityBlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int maxKeyLength;
 	private boolean isRunning = true;
@@ -20,7 +20,7 @@ public class CypherBreaker {
 		
 		this.cypherText = cypherText;
 		
-		queue = new ArrayBlockingQueue<Resultable>(MAX_QUEUE_SIZE);
+		queue = new PriorityBlockingQueue<Resultable>(MAX_QUEUE_SIZE);
 		
 		init();
 	}
@@ -53,16 +53,10 @@ public class CypherBreaker {
 					
 					// if all threads have been processed
 					if(counter == maxKeyLength - 2){ // -2 because key length starts at 2
+					
+						// poison the blocking queue to stop it
+						queue.put(new PoisonResult());
 						
-						try {
-							
-							// poison the blocking queue to stop it
-							queue.put(new PoisonResult());
-							
-						} catch (InterruptedException e) {
-							
-							e.printStackTrace();
-						} 
 					} // if
 					
 				} // synchronized()

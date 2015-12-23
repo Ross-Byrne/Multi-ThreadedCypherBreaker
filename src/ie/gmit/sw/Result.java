@@ -1,6 +1,6 @@
 package ie.gmit.sw;
 
-public class Result implements Resultable {
+public class Result implements Resultable, Comparable<Resultable>{
 
 	private String plainText;
 	private int key;
@@ -44,4 +44,14 @@ public class Result implements Resultable {
 		this.score = score;
 	}
 
-}
+	
+	// compares results based on their score
+	// this is for the PriorityBlockingQueue
+	
+	public int compareTo(Resultable result) {
+		
+		return Double.compare(this.getScore(), result.getScore());
+		
+	} // compareTo()
+
+} // class

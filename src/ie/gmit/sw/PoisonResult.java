@@ -1,6 +1,6 @@
 package ie.gmit.sw;
 
-public class PoisonResult implements Resultable{
+public class PoisonResult implements Resultable, Comparable<Resultable>{
 	
 	private Resultable result = null;
 	
@@ -37,5 +37,14 @@ public class PoisonResult implements Resultable{
 		
 		result.setScore(score);
 	}
+
+	// compares results based on their score
+	// this is for the PriorityBlockingQueue
+	
+	public int compareTo(Resultable result) {
+		
+		return Double.compare(this.getScore(), result.getScore());
+		
+	} // compareTo()
 
 } // class
