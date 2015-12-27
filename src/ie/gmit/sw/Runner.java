@@ -6,15 +6,17 @@ import java.util.*;
 
 public class Runner {
 	
-	private static CypherBreaker cypherBreaker;
-
 	public static void main(String[] args) {
 		
+		CypherBreaker cypherBreaker;
 		Scanner scanner = new Scanner(System.in);
+		
 		String usersEncryptedText = "";
 		String enteredPlainText = "";
 	
 		int menuChoice = 0;
+		
+		// main program loop
 		
 		while(menuChoice != 99){
 			
@@ -84,6 +86,7 @@ public class Runner {
 					
 					break;
 			} // switch
+			
 		} // while
 		
 		System.out.println("\n\nProgram Ended.\n\n");
