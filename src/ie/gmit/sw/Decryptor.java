@@ -29,9 +29,8 @@ public class Decryptor implements Runnable { // producer
 		
 		double score = textScorer.getScore(plainText);
 		
-		Resultable r = new Result(plainText, key, score); // create a result
-		
-		System.out.println(r.getScore());
+		// create a result
+		Resultable r = new Result(plainText, key, score); 
 		
 		try {
 			System.out.println("Putting result on the queue");

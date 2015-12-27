@@ -29,14 +29,17 @@ public class CypherBreaker {
 		
 		// start at load of producers
 		
-		maxKeyLength = cypherText.length() / 2;
+		// calculate max key length, and round it up
+		maxKeyLength = (int)Math.ceil(cypherText.length() / 2.0);
 		
-		System.out.println("MaxKeyLength: " + maxKeyLength);
+		System.out.println("\nMaxKeyLength: " + maxKeyLength);
 		
-		for(int i = 2; i < maxKeyLength; i++){
+		// run a decryptor for every possible key
+		for(int i = 2; i <= maxKeyLength; i++){
 			
 			new Thread(new Decryptor(queue, cypherText, i, quadGramMap.getQuadGramMap())).start();
-		}
+			
+		} // for
 		
 		new Thread(new Runnable(){
 			
@@ -64,7 +67,7 @@ public class CypherBreaker {
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
+						} // try
 						
 					} // if
 					
@@ -82,11 +85,11 @@ public class CypherBreaker {
 						
 						Resultable r = queue.take();
 						
-						System.out.println("Item taken");
+						/*System.out.println("Item taken");
 						
 						System.out.println("\n\nResult Score: " + r.getScore() + 
 								"\nKey: " + r.getKey() +
-								"\nPlainText: " + r.getPlainText() + "\n\n");
+								"\nPlainText: " + r.getPlainText() + "\n\n");*/
 						
 						// check if the result taken from the queue is a poison result or not
 						if(r instanceof PoisonResult){
@@ -96,8 +99,8 @@ public class CypherBreaker {
 							System.out.println("Poison!");
 							
 							// print out the best result recorded
-							System.out.println("\nThe best result:\n" +
-									"Score: " + bestResult.getScore() + 
+							System.out.println("\nThe Best Result:\n" +
+									"\nScore: " + bestResult.getScore() + 
 									"\nKey: " + bestResult.getKey() +
 									"\nPlainText: " + bestResult.getPlainText() + "\n");
 							
