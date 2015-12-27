@@ -10,7 +10,7 @@ public class Decryptor implements Runnable { // producer
 	private int key;
 	private Map<String, Double> quadGramMap;
 	
-	public Decryptor(PriorityBlockingQueue<Resultable> queue, String cypherText, int key, Map<String, Double> quadGramMap) {
+	public Decryptor(BlockingQueue<Resultable> queue, String cypherText, int key, Map<String, Double> quadGramMap) {
 		
 		super();
 		this.queue = queue;

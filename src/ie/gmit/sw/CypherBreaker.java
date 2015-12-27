@@ -7,7 +7,7 @@ public class CypherBreaker {
 	
 	private static final int MAX_QUEUE_SIZE = 100;
 	
-	private PriorityBlockingQueue<Resultable> queue;
+	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int maxKeyLength;
 	private boolean isRunning = true;
@@ -20,7 +20,7 @@ public class CypherBreaker {
 		
 		this.cypherText = cypherText;
 		
-		queue = new PriorityBlockingQueue<Resultable>(MAX_QUEUE_SIZE);
+		queue = new ArrayBlockingQueue<Resultable>(MAX_QUEUE_SIZE);
 		
 		init();
 	}
@@ -43,6 +43,8 @@ public class CypherBreaker {
 			volatile int counter = 0;
 			Object lock = new Object();
 			
+			Resultable bestResult;
+			
 			public void increment(){
 				
 				synchronized(lock){
@@ -54,8 +56,15 @@ public class CypherBreaker {
 					// if all threads have been processed
 					if(counter == maxKeyLength - 2){ // -2 because key length starts at 2
 					
-						// poison the blocking queue to stop it
-						queue.put(new PoisonResult());
+						try {
+							
+							// poison the blocking queue to stop it
+							queue.put(new PoisonResult());
+							
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 					} // if
 					
@@ -79,11 +88,43 @@ public class CypherBreaker {
 								"\nKey: " + r.getKey() +
 								"\nPlainText: " + r.getPlainText() + "\n\n");
 						
+						// check if the result taken from the queue is a poison result or not
 						if(r instanceof PoisonResult){
+							
+							// result is poison
 							
 							System.out.println("Poison!");
 							
+							// print out the best result recorded
+							System.out.println("\nThe best result:\n" +
+									"Score: " + bestResult.getScore() + 
+									"\nKey: " + bestResult.getKey() +
+									"\nPlainText: " + bestResult.getPlainText() + "\n");
+							
+							// return the break the loop
 							return;
+						} // if
+						
+						// check if the result is better then current one
+						// if it is, replace current result with it
+						
+						if(counter == 0){ // if the first result
+							
+							// no best result yet, create it
+							bestResult = new Result(r.getPlainText(), r.getKey(), r.getScore());
+							
+						} else { // otherwise
+							
+							// check if result has better score then the bestResult score
+							
+							if(r.getScore() > bestResult.getScore()){
+								
+								// Update the bestResult with the better result
+								bestResult.setPlainText(r.getPlainText());
+								bestResult.setKey(r.getKey());
+								bestResult.setScore(r.getScore());
+								
+							} // if
 						} // if
 						
 						// increment the number of results taken from the queue
