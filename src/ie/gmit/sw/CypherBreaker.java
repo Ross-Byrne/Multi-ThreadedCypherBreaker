@@ -1,5 +1,9 @@
 package ie.gmit.sw;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.*;
 
 public class CypherBreaker {
@@ -103,6 +107,16 @@ public class CypherBreaker {
 									"\nKey: " + bestResult.getKey() +
 									"\nPlainText: " + bestResult.getPlainText() + "\n");
 							
+							// write broken encryption plainText to a file
+							try(PrintWriter writer = new PrintWriter((new BufferedWriter(new FileWriter("brokenEncryptedText.txt"))))){
+								
+								// write the encrypted text to a file
+								writer.write(bestResult.getPlainText());
+								
+							} catch (IOException e) {
+								
+								System.out.println("An Error Occured!");
+							} // try
 							
 							// queue is poisoned, loop can end
 							isRunning = false;
