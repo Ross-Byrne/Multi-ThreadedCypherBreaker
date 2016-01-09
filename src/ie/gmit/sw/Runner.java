@@ -21,6 +21,13 @@ public class Runner {
 		int maxKeyLength = 0;
 		String fileName = "";
 		
+		// message to user
+		System.out.println("Multi-Threaded Cypher Breaker.\n");
+		System.out.println("PlainText or Encrypted Text Entered ** Cannot ** Contain Puncuation Marks!");
+		System.out.println("The broken encryption will not be accurate if Puncuation is included!");
+		System.out.println("Spaces can be entered but they will be removed automatically.");
+		System.out.println("The longer the encrypted message being broken is, the more accurate it will be.\n");
+		
 		// main program loop
 		
 		while(menuChoice != 99){
@@ -151,40 +158,38 @@ public class Runner {
 				enteredPlainText.append(readFile(fileName));
 				
 				// check if file read failed
-				if(enteredPlainText.toString().equals("")){
+				if(enteredPlainText.length() != 0){ // if the file read did not fail
 					
-					// file read failed, break
-					break;
+					// calculate max key length
+					maxKeyLength = (int)Math.ceil(enteredPlainText.length() / 2.0); // round up
+					
+					// save users input
+					System.out.print("\nEnter Encryption Key. Must be between 2 and " + maxKeyLength + ": ");
+					key = scanner.nextInt();
+					
+					// encrypt plainText
+					usersEncryptedText.append(new RailFence().encrypt(enteredPlainText.toString(), key));
+					
+					System.out.println("\nPlainText from file " + fileName + " has been Encrypted.");
+					System.out.println("Encryped Text: " + usersEncryptedText.toString());
+					
+					// encrypted text loaded
+					encryptedTextLoaded = true;
+					
+					// write encrypted text to file
+					
+					/*try(PrintWriter writer = new PrintWriter((new BufferedWriter(new FileWriter("encryptedText.txt"))))){
+						
+						// write the encrypted text to a file
+						writer.write(usersEncryptedText.toString());
+						
+					} catch (IOException e) {
+						
+						System.out.println("An Error Occured!");
+					} // try*/
+					
 				} // if
-				
-				// calculate max key length
-				maxKeyLength = (int)Math.ceil(enteredPlainText.length() / 2.0); // round up
-				
-				// save users input
-				System.out.print("\nEnter Encryption Key. Must be between 2 and " + maxKeyLength + ": ");
-				key = scanner.nextInt();
-				
-				// encrypt plainText
-				usersEncryptedText.append(new RailFence().encrypt(enteredPlainText.toString(), key));
-				
-				System.out.println("PlainText from file " + fileName + " has been Encrypted.");
-				System.out.println("Encryped Text: " + usersEncryptedText.toString());
-				
-				// encrypted text loaded
-				encryptedTextLoaded = true;
-				
-				// write encrypted text to file
-				
-				/*try(PrintWriter writer = new PrintWriter((new BufferedWriter(new FileWriter("encryptedText.txt"))))){
-					
-					// write the encrypted text to a file
-					writer.write(usersEncryptedText.toString());
-					
-				} catch (IOException e) {
-					
-					System.out.println("An Error Occured!");
-				} // try*/
-				
+			
 				break;
 			case 5: // read encrypted text from a file
 				
@@ -204,17 +209,15 @@ public class Runner {
 				usersEncryptedText.append(readFile(fileName));
 				
 				// check if file read failed
-				if(enteredPlainText.toString().equals("")){
+				if(usersEncryptedText.length() != 0){ // if file was read successfully
 					
-					// file read failed, break
-					break;
+					System.out.println("\nEncrypted Text from file " + fileName + " has been Read.");
+					System.out.println("Encryped Text: " + usersEncryptedText.toString());
+					
+					// encrypted text loaded
+					encryptedTextLoaded = true;
+					
 				} // if
-				
-				System.out.println("Encrypted Text from file " + fileName + " has been Read.");
-				System.out.println("Encryped Text: " + usersEncryptedText.toString());
-				
-				// encrypted text loaded
-				encryptedTextLoaded = true;
 				
 				break;
 			case 6: // exit
@@ -246,7 +249,7 @@ public class Runner {
  		if (!file.exists() || !file.isFile()){
  			
  			// print out warning message
- 			System.out.println("Error, " + fileName + " is not a file!");
+ 			System.out.println("\nError, " + fileName + " is not a file!");
  			System.out.println("Make sure file is in same directory as railfence.jar!");
  			
  			// file doesn't exist, so exit
@@ -261,8 +264,11 @@ public class Runner {
  			// loop through the file, reading it line by line
 		    while((line = br.readLine()) != null) {
 		  
-		    	// add the line of text to string builder after removing all spaces
-		    	sb.append(line.replaceAll(" ", ""));
+		    	// remove all spaces from the line of text
+		    	line = line.replaceAll(" ", "");
+		    	
+		    	// add the line of text to string builder
+		    	sb.append(line);
 		    	
 		    } // while
 		    

@@ -3,15 +3,19 @@ package ie.gmit.sw;
 import java.util.*;
 import java.util.concurrent.*;
 
+// Class for scoring how English a message is
+
 public class TextScorer {
 	
 	private Map<String, Double> map = new ConcurrentHashMap<String, Double>();
 	
+	// Constructor
 	public TextScorer(Map<String, Double> m){
 		
 		this.map = m;
 	} // TextScorer()
 	
+	// gets the score
 	public double getScore(String text){
 		
 		double score = 0f;
@@ -42,7 +46,6 @@ public class TextScorer {
 		}else{
 			
 			return 0f;
-			
 		} // if
 		
 	} // computeLogScore()

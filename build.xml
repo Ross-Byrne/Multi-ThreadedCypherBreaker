@@ -25,7 +25,7 @@
 	<property name="app.name" value="A Multi-threaded Cypher Breaker"/>
 	<property name="app.version" value="1.0"/>
 	<property name="app.version.name" value="Scarab"/>
-	<property name="jre.target" value="1.6"/>
+	<property name="jre.target" value="1.7"/>
 	<property name="srcDir" value="./src/"/>
 	<property name="distDir" value="./dist"/>
 	<property name="docDir" value="${distDir}/docs"/>
