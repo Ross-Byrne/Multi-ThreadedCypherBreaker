@@ -13,6 +13,7 @@ public class Runner {
 		
 		String usersEncryptedText = "";
 		String enteredPlainText = "";
+		boolean encryptedTextLoaded = false;
 	
 		int menuChoice = 0;
 		
@@ -21,11 +22,23 @@ public class Runner {
 		while(menuChoice != 99){
 			
 			do{
+				// print status
+				if(encryptedTextLoaded){ // if encrypted text is loaded
+					
+					System.out.println("\nStatus: Encrypted Text Loaded. Ready To Break Encryption!");
+					
+				} else { // if no encrypted text loaded
+					
+					System.out.println("\nStatus: Encrypted Text Not Loaded. Not Ready!");
+				} // if
 				
 				// Print out Menu Options
-				System.out.println("\n1.) Encrypt Text.");
-				System.out.println("2.) Break Encryped Text.");
-				System.out.println("3.) Exit.");
+				System.out.println("\n1.) Break Encrypted Text.");
+				System.out.println("2.) Enter PlainText & Encrypt it.");
+				System.out.println("3.) Enter Encrypted Text.");
+				System.out.println("4.) Read PlainText From a File & Encrypt it.");
+				System.out.println("5.) Read Encrypted Text From a File.");
+				System.out.println("6.) Exit.");
 				
 				System.out.print("\nEnter Option: ");
 				
@@ -38,58 +51,92 @@ public class Runner {
 				
 				menuChoice = scanner.nextInt();
 			
-			}while(menuChoice < 1 || menuChoice > 3);
+			}while(menuChoice < 1 || menuChoice > 6);
 			
 			switch(menuChoice){
-				case 1: // encrypt Text
+			case 1: // Break Encrypted Text
+				
+				// check if the encrypted text is greater then 2 characters long
+				if(usersEncryptedText.length() > 2){
 					
-					scanner.nextLine(); // flush buffer
+					// create the Cypher breaker which will start the program off
+					cypherBreaker = new CypherBreaker(usersEncryptedText);
 					
-					System.out.print("\nEnter Text You Want To Encrypt: ");
-					enteredPlainText = scanner.nextLine();
+					// block until the cypherBreaker is finished
+					while(cypherBreaker.getIsRunning());
 					
-					// remove all spaces
-					enteredPlainText = new String(enteredPlainText.replaceAll(" ", ""));
+				} else { // if not
 					
-					// calculate max key length
-					int maxKeyLength = (int)Math.ceil(enteredPlainText.length() / 2.0); // round up
+					// tell the user they need encrypted text atleast 3 characters long
+					System.out.println("\nYou must have encrypted text atleast 3 characters long!");
 					
-					System.out.print("\nEnter Encryption Key. Must be between 2 and " + maxKeyLength + ": ");
-					int key = scanner.nextInt();
+				} // if
+				
+				break;
+			case 2: // encrypt entered Plain Text
+				
+				scanner.nextLine(); // flush buffer
+				
+				System.out.print("\nEnter Text You Want To Encrypt: ");
+				enteredPlainText = scanner.nextLine();
+				
+				// remove all spaces
+				enteredPlainText = new String(enteredPlainText.replaceAll(" ", ""));
+				
+				// calculate max key length
+				int maxKeyLength = (int)Math.ceil(enteredPlainText.length() / 2.0); // round up
+				
+				System.out.print("\nEnter Encryption Key. Must be between 2 and " + maxKeyLength + ": ");
+				int key = scanner.nextInt();
+				
+				// encrypt the users plainText
+				usersEncryptedText = new RailFence().encrypt(enteredPlainText, key);
+				
+				System.out.println("PlainText Encrypted.");
+				System.out.println("Encryped Text: " + usersEncryptedText);
+				
+				// encrypted text loaded
+				encryptedTextLoaded = true;
+				
+				break;
+			case 3: // enter encrypted text
+				
+				scanner.nextLine(); // flush buffer
+				
+				System.out.print("\nEnter Encrypted Text: ");
+				usersEncryptedText = scanner.nextLine();
+				
+				// remove all spaces
+				usersEncryptedText = new String(usersEncryptedText.replaceAll(" ", ""));
+				
+				// output the entered text
+				System.out.println("Encrypted Text Entered.");
+				System.out.println("Encryped Text: " + usersEncryptedText);
+				
+				// encrypted text loaded
+				encryptedTextLoaded = true;
+				
+				break;
+			case 4: // read plainText from a file and encrypt it
+				
+				break;
+			case 5: // read encrypted text from a file
+				
+				break;
+			case 6: // exit
 					
-					// encrypt the users plainText
-					usersEncryptedText = new RailFence().encrypt(enteredPlainText, key);
+				// set menuChoice to 99 to end program loop
+				menuChoice = 99;
 					
-					System.out.println("PlainText Encrypted.");
-					System.out.println("Encryped Text: " + usersEncryptedText);
-					
-					break;
-				case 2: // Break Encrypted Text
-					
-					if(usersEncryptedText.length() > 2){
-						
-						// create the Cypher breaker which will start the program off
-						cypherBreaker = new CypherBreaker(usersEncryptedText);
-						
-					} else {
-						
-						System.out.println("\nYou must have encrypted text to try break!");
-						System.out.println("Encrypt some text!");
-						
-					} // if
-					
-					break;
-				case 3: // exit
-					
-					// set menuChoice to 99 to end program loop
-					menuChoice = 99;
-					
-					break;
+				break;
 			} // switch
 			
 		} // while
 		
-		System.out.println("\n\nProgram Ended.\n\n");
+		System.out.println("\nProgram Ended.");
+		
+		// close scanner
+		scanner.close();
 		
 	} // main()
 

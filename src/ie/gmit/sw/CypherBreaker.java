@@ -9,10 +9,10 @@ public class CypherBreaker {
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int maxKeyLength;
-	private boolean isRunning = true;
+	private volatile boolean isRunning = true;
 	
 	// create QuadGramMap
-	// parses 4gram.txt into a HashMap
+	// parses 4grams.txt into a HashMap
 	QuadGramMap quadGramMap = new QuadGramMap();
 	
 	public CypherBreaker(String cypherText){
@@ -103,8 +103,12 @@ public class CypherBreaker {
 									"\nKey: " + bestResult.getKey() +
 									"\nPlainText: " + bestResult.getPlainText() + "\n");
 							
-							// return the break the loop
-							return;
+							
+							// queue is poisoned, loop can end
+							isRunning = false;
+							
+							// break to exit the loop
+							break;
 						} // if
 						
 						// check if the result is better then current one
@@ -133,7 +137,7 @@ public class CypherBreaker {
 						this.increment();
 						
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					} // try catch
 					
@@ -144,4 +148,9 @@ public class CypherBreaker {
 		}).start();
 		
 	} // init()
+	
+	public boolean getIsRunning(){
+		
+		return isRunning;
+	} // getIsRunning()
 } // class
