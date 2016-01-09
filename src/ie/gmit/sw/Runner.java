@@ -27,7 +27,7 @@ public class Runner {
 				System.out.println("2.) Break Encryped Text.");
 				System.out.println("3.) Exit.");
 				
-				System.out.print("\nEnter Option:");
+				System.out.print("\nEnter Option: ");
 				
 				while(!scanner.hasNextInt()){
 					

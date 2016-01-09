@@ -27,7 +27,7 @@ public class QuadGramMap {
 		
 	} // QuadGramMap()
 	
-	public Map getQuadGramMap(){
+	public Map<String, Double> getQuadGramMap(){
 		
 		return this.map;
 	}

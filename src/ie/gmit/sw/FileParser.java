@@ -11,7 +11,20 @@ public class FileParser {
 		
 		Map<String, Double> map = new ConcurrentHashMap<String, Double>();
 		
-		BufferedReader br= new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		// create a file to represent the file that is going to be parsed
+		File fileToParse = new File(file);
+		
+		// check if file exists
+		if(!fileToParse.exists()){
+			
+			// file does not exist, create it so program does not crash!
+			fileToParse.createNewFile();
+			
+			// tell user file was not found
+			System.out.println("Error! " + fileToParse.getName() + " does not exist! Empty file created to avoid crash!");
+		} // if
+		
+		BufferedReader br= new BufferedReader(new InputStreamReader(new FileInputStream(fileToParse)));
 		String next= null;
 		
 		// read a line at a time

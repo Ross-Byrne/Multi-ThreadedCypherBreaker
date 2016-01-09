@@ -1,6 +1,5 @@
 package ie.gmit.sw;
 
-import java.util.*;
 import java.util.concurrent.*;
 
 public class CypherBreaker {
@@ -46,14 +45,16 @@ public class CypherBreaker {
 			volatile int counter = 0;
 			Object lock = new Object();
 			
+			// variable to store the best - most english - result
 			Resultable bestResult;
 			
 			public void increment(){
 				
 				synchronized(lock){
 					
-					System.out.println("Counter: " + counter);
+					//System.out.println("Counter: " + counter);
 
+					// increment counter
 					counter++;
 					
 					// if all threads have been processed
@@ -79,8 +80,6 @@ public class CypherBreaker {
 				
 				while(isRunning){
 					
-					System.out.println("In while");
-					
 					try {
 						
 						Resultable r = queue.take();
@@ -96,7 +95,7 @@ public class CypherBreaker {
 							
 							// result is poison
 							
-							System.out.println("Poison!");
+							//System.out.println("Poison!");
 							
 							// print out the best result recorded
 							System.out.println("\nThe Best Result:\n" +
@@ -120,7 +119,7 @@ public class CypherBreaker {
 							
 							// check if result has better score then the bestResult score
 							
-							if(r.getScore() > bestResult.getScore()){
+							if(r.getScore() > bestResult.getScore()){ // if result score is better then bestResult score
 								
 								// Update the bestResult with the better result
 								bestResult.setPlainText(r.getPlainText());

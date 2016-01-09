@@ -25,15 +25,17 @@ public class Decryptor implements Runnable { // producer
 		RailFence rf = new RailFence();
 		TextScorer textScorer = new TextScorer(quadGramMap);
 		
+		// decrypt the plaintext with the key given
 		String plainText = rf.decrypt(cypherText, key);
 		
+		// score the decrypted plaintext
 		double score = textScorer.getScore(plainText);
 		
 		// create a result
 		Resultable r = new Result(plainText, key, score); 
 		
 		try {
-			System.out.println("Putting result on the queue");
+			//System.out.println("Putting result on the queue");
 			
 			// put the result on the queue
 			queue.put(r);

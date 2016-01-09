@@ -113,6 +113,7 @@ public class RailFence {
 	}
 	
 	//***** Output the 2D array in CSV format ***** 
+	@SuppressWarnings("unused")
 	private void printMatrix(char[][] matrix){
 		for (int row = 0; row < matrix.length; row++){ //Loop over each row in the matrix
 			for (int col = 0; col < matrix[row].length; col++){ //Loop over each column in the matrix
