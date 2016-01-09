@@ -29,7 +29,8 @@
 	<property name="srcDir" value="./src/"/>
 	<property name="distDir" value="./dist"/>
 	<property name="docDir" value="${distDir}/docs"/>
-
+	<property name="quadGramFile" value="./4grams.txt"/>
+ 
 	<path id="classpath">
     	<pathelement location="." />
   	</path>
@@ -58,7 +59,7 @@
     <target name="init" depends="clean">
 		<tstamp/>
     	<mkdir dir="${distDir}"/>
-
+    	<copy file="${quadGramFile}" toDir="${distDir}"/>
 
 	</target>	
 
@@ -69,6 +70,12 @@
 		    <classpath refid="classpath" />
 		</javac>
 	</target>
+	
+	<!-- Move 4grams.txt into dist so the jar file can read it -->
+	
+	
+		
+
 
 
 	<!-- Create Java application archive (Jar) -->
