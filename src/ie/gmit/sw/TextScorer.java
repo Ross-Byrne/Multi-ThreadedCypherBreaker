@@ -13,15 +13,34 @@ import java.util.concurrent.*;
 
 public class TextScorer {
 	
+	/*============================= Member Variables =============================*/
+	
 	private Map<String, Double> map = new ConcurrentHashMap<String, Double>();
 	
-	// Constructor
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * TextScorer Constructor.
+	 * 
+	 * @param m A map containing QuadGrams that will be used to score text.
+	 */
+	
 	public TextScorer(Map<String, Double> m){
 		
 		this.map = m;
 	} // TextScorer()
 	
-	// gets the score
+	
+	/*============================= Methods =============================*/
+	
+	/*============================= getScore() =============================*/
+	/**
+	 * Scores Text using a Quad Gram Map to see how English the text is.
+	 * 
+	 * @param text The String of text you want to score.
+	 * @return The score the TextScorer gives to the text.
+	 */
+	
 	public double getScore(String text){
 		
 		double score = 0f;
@@ -38,6 +57,15 @@ public class TextScorer {
 		return score;
 		
 	} // getScore()
+	
+	
+	/*============================= computeLogScore() =============================*/
+	/**
+	 * Computes the score by getting the log of the frequency of a Quad Gram divided by the total number of Quad Grams in the Map.
+	 * 
+	 * @param Quad Gram from the Quad Gram Map.
+	 * @return The log10 of the frequency of the Quad Gram divided by the total number of QuadGrams.
+	 */
 	
 	public double computeLogScore(String quadgram){
 		

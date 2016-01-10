@@ -11,11 +11,22 @@ package ie.gmit.sw;
 
 public class Result implements Resultable {
 
+	/*============================= Member Variables =============================*/
+	
 	private String plainText;
 	private int key;
 	private double score;
 	
-	// Constructor
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * Constructor for Result
+	 * 
+	 * @param plainText The text that has been decrypted.
+	 * @param key The key used to decrypt the Cypher Text
+	 * @param score The score given to the plainText, scoring how English it is.
+	 */
+	
 	public Result(String plainText, int key, double score){
 		
 		this.plainText = plainText;
@@ -24,31 +35,52 @@ public class Result implements Resultable {
 		
 	} // Result()
 	
+	
+	/*============================= Methods =============================*/
+	// interface's JavaDocs explain methods
+	
+	/*============================= getPlainText() =============================*/
+	
 	public String getPlainText() {
 		
 		return plainText;
 	} // getPlainText()
 
+	
+	/*============================= setPlainText() =============================*/
+	
 	public void setPlainText(String plainText) {
 		
 		this.plainText = plainText;
 	} // setPlainText()
 
+	
+	/*============================= getKey() =============================*/
+	
 	public int getKey() {
 		
 		return key;
 	} // getKey()
 
+	
+	/*============================= setKey() =============================*/
+	
 	public void setKey(int key) {
 		
 		this.key = key;
 	} // setKey()
 
+	
+	/*============================= getScore() =============================*/
+	
 	public double getScore() {
 		
 		return score;
 	} // getScore()
 
+	
+	/*============================= setScore() =============================*/
+	
 	public void setScore(double score) {
 		
 		this.score = score;
