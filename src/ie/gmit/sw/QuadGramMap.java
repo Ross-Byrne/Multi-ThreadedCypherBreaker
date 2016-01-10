@@ -14,11 +14,18 @@ import java.util.concurrent.*;
 
 public class QuadGramMap {
 	
+	/*============================= Member Variables =============================*/
+	
 	public static final int GRAM_SIZE = 4;
 	private static final String FILE_NAME = "4grams.txt";
 	private Map<String, Double> map; 
 	
-	// constructor that creates an instance of FileParser, reads the 4grams.txt file into the hashmap
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * Constructor for QuadGramMap, creates a map and parses the Quad Gram File into it.
+	 */
+	
 	public QuadGramMap(){
 		
 		// create a parser to parse the quad grams from a file into a hashmap
@@ -38,7 +45,16 @@ public class QuadGramMap {
 		
 	} // QuadGramMap()
 	
-	// returns the quadGramMap
+	
+	/*============================= Methods =============================*/
+	
+	/*============================= getQuadGramMap() =============================*/
+	/**
+	 * Gets the Quad Gram Map that contains the Quad Grams.
+	 * 
+	 * @return The Map that contains the Quad Grams as String / Double - Key / Value.
+	 */
+	
 	public Map<String, Double> getQuadGramMap(){
 		
 		return this.map;

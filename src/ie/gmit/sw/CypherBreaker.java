@@ -13,6 +13,8 @@ import java.util.concurrent.*;
 
 public class CypherBreaker {
 	
+	/*============================= Member Variables =============================*/
+	
 	private static final int MAX_QUEUE_SIZE = 100;
 	
 	private BlockingQueue<Resultable> queue;
@@ -23,7 +25,16 @@ public class CypherBreaker {
 	// parses 4grams.txt into a HashMap
 	QuadGramMap quadGramMap = new QuadGramMap();
 	
-	// Constructor
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * Constructor for CypherBreaker.
+	 * Creates the queue that the results will be added to.
+	 * Runs the init() method to start the cypher breaking
+	 * 
+	 * @param cypherText The encrypted text that is going to have its encryption broken.
+	 */
+	
 	public CypherBreaker(String cypherText){
 		
 		this.cypherText = cypherText;
@@ -36,7 +47,17 @@ public class CypherBreaker {
 		
 	} // CypherBreaker()
 	
-	// initialises the cypherBreaker
+	
+	/*============================= Methods =============================*/
+	
+	/*============================= init() =============================*/
+	/**
+	 * Initialises the cypherBreaker.
+	 * 
+	 * Creates a thread for every possible cypher key and gets each thread to decrypt the cypher text with its given key.
+	 * Then creates the result sorter thread to sort the results of the decryptions.
+	 */
+	
 	public void init(){
 		
 		// calculate max key length, and round it up
@@ -60,8 +81,17 @@ public class CypherBreaker {
 	
 	} // init()
 	
-	// returns the value of IsRunning from the resultSorter thread
-	// because if the result sorter isn't running, the cypherBreaker isn't running as far a the user knows
+	
+	/*============================= getIsRunning() =============================*/
+	/**
+	 * Gets the value of isRunning from the ResultSorter Thread.
+	 * If ResultSorter isn't running, then it has a best result from the broken encryption attempts.
+	 * 
+	 * It gets the value from ResultSorter Thread because if the resultSorter is finished, the CypherBreaker is finished too.
+	 * 
+	 * @return the boolean variable isRunning from the resultSorter Thread.
+	 */
+	
 	public boolean getIsRunning(){
 		
 		return ResultSorter.getIsRunning();

@@ -13,7 +13,19 @@ import java.io.*;
 
 public class FileParser {
 	
-	//put into its own class
+	/*============================= Methods =============================*/
+	
+	/*============================= parse() =============================*/
+	/**
+	 * Parses the contents of a file into a map.
+	 * Lines of text in the file must contain a String and a Double/Integer.
+	 * The two values are split at the space and added to the map as a key and value
+	 * 
+	 * @param file The name of the file that is going to be parsed.
+	 * @return A map containing a String / Double as a key / value .
+	 * @throws Exception Will throw an Exception if the file does not exist.
+	 */
+	
 	public Map<String, Double> parse(String file) throws Exception{
 		
 		Map<String, Double> map = new ConcurrentHashMap<String, Double>();

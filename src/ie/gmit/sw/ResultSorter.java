@@ -14,6 +14,8 @@ import java.util.concurrent.*;
 
 public class ResultSorter implements Runnable{
 	
+	/*============================= Member Variables =============================*/
+	
 	private volatile int counter = 0;
 	private volatile static boolean isRunning = true;
 	private Object lock = new Object();
@@ -25,15 +27,30 @@ public class ResultSorter implements Runnable{
 	// variable to store the best - most English - result
 	private Resultable bestResult;
 	
-	// Constructor
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * 
+	 * @param queue The blocking Queue that holds the results.
+	 * @param maxKeyLength The max length the cypher key can be for the RailFence cypher to work correctly.
+	 */
+	
 	ResultSorter(BlockingQueue<Resultable> queue, int maxKeyLength){
 		
 		this.queue = queue;
 		this.maxKeyLength = maxKeyLength;
 		
-	} // constructor
+	} // ResultSorter()
 	
-	// counts the number of results taken off the queue
+	
+	/*============================= Methods =============================*/
+	
+	/*============================= increment() =============================*/
+	/**
+	 * Counts the number of results taken off the queue, uses maxKeyLength to calculate number of results.
+	 * When the last result is taken off the queue, a poison result is added to poison the blocking queue.
+	 */
+	
 	public void increment(){
 		
 		synchronized(lock){
@@ -61,6 +78,16 @@ public class ResultSorter implements Runnable{
 		} // synchronized()
 
 	} // increment()
+	
+	
+	/*============================= run() =============================*/
+	/**
+	 * Run method to run the thread.
+	 * Takes a result off the queue, checks if its a poisonResult.
+	 * If it's a poisonResult, no results are left,  print out the best result and end.
+	 * If it's a normal result, check if the results score is better then the current best result.
+	 * If the result is better then current best, replace current best with it otherwise do nothing and repeat process.
+	 */
 	
 	public void run(){
 		
@@ -147,7 +174,16 @@ public class ResultSorter implements Runnable{
 		
 	} // run()
 	
-	// returns isRunning
+	
+	/*============================= getIsRunning() =============================*/
+	/**
+	 * Gets the isRunning variable.
+	 * The thread keeps sorting results until it's finished and isRunning is set to false.
+	 * The thread ResultSorter will then end when isRunning is set to false.
+	 * 
+	 * @return boolean value of isRunning.
+	 */
+	
 	public static boolean getIsRunning(){
 		
 		return isRunning;

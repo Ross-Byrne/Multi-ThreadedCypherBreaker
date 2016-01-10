@@ -14,6 +14,15 @@ import java.util.*;
 
 public class Runner {
 	
+	/*============================= Methods =============================*/
+	
+	/*============================= main() =============================*/
+	/**
+	 * The Programs main method.
+	 * 
+	 * @param args An array of String Arguments.
+	 */
+	
 	public static void main(String[] args) {
 		
 		CypherBreaker cypherBreaker;
@@ -244,6 +253,8 @@ public class Runner {
 		
 	} // main()
 	
+	
+	/*============================= readFile() =============================*/
 	/**
 	 * Reads a text file line by line and removes all spaces.
 	 * 
@@ -251,7 +262,6 @@ public class Runner {
 	 * @return The text read from the file as a String.
 	 */
 	
-	// reads a file, removes spaces from text and returns a string containing files text
 	public static String readFile(String fileName){
 		
 		StringBuilder sb = new StringBuilder();

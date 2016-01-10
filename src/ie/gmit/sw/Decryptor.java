@@ -14,12 +14,24 @@ import java.util.*;
 
 public class Decryptor implements Runnable { // producer
 	
+	/*============================= Member Variables =============================*/
+	
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int key;
 	private Map<String, Double> quadGramMap;
 	
-	// Constructor
+	
+	/*============================= Constructors =============================*/
+	/**
+	 * Constructor for Decryptor
+	 * 
+	 * @param queue The Blocking Queue that the results are put on.
+	 * @param cypherText The encrypted Text that is being decrypted.
+	 * @param key The key given to the Decryptor to decrypt the cypher text.
+	 * @param quadGramMap A Quad Gram Map used to score how English the decrypted text is.
+	 */
+	
 	public Decryptor(BlockingQueue<Resultable> queue, String cypherText, int key, Map<String, Double> quadGramMap) {
 		
 		super();
@@ -30,6 +42,17 @@ public class Decryptor implements Runnable { // producer
 		
 	} // Decryptor()
 
+	
+	/*============================= Methods =============================*/
+	
+	/*============================= run() =============================*/
+	/**
+	 * Run Method for the Decryptor Thread.
+	 * Thread Decrypts the cypher text with the key given to it.
+	 * It then scores the decrypted text with a QuadGram Map to see how English it is.
+	 * It the  puts the result on the blocking queue to be sorted.
+	 */
+	
 	public void run(){
 		
 		// create a RailFence Object to decrypt cypherText
