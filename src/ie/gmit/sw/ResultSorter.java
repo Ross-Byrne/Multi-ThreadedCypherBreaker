@@ -17,7 +17,7 @@ public class ResultSorter implements Runnable{
 	/*============================= Member Variables =============================*/
 	
 	private volatile int counter = 0;
-	private volatile static boolean isRunning = true;
+	private volatile boolean isRunning = true;
 	private Object lock = new Object();
 	private static final String BROKEN_ENCRYPTED_TEXT_FILENAME = "brokenEncryptedText.txt";
 	
@@ -130,7 +130,7 @@ public class ResultSorter implements Runnable{
 					} // try
 					
 					// tell user broken decrypted text is saved to a file
-					System.out.println("Decrypted PlainText printed to File: " + BROKEN_ENCRYPTED_TEXT_FILENAME);
+					System.out.println("Decrypted PlainText Printed to File: " + BROKEN_ENCRYPTED_TEXT_FILENAME);
 					
 					// queue is poisoned, loop can end
 					isRunning = false;
@@ -173,20 +173,5 @@ public class ResultSorter implements Runnable{
 		} // while	
 		
 	} // run()
-	
-	
-	/*============================= getIsRunning() =============================*/
-	/**
-	 * Gets the isRunning variable.
-	 * The thread keeps sorting results until it's finished and isRunning is set to false.
-	 * The thread ResultSorter will then end when isRunning is set to false.
-	 * 
-	 * @return boolean value of isRunning.
-	 */
-	
-	public static boolean getIsRunning(){
-		
-		return isRunning;
-	} // getIsRunning()
 
 } // class

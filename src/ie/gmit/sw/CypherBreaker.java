@@ -20,10 +20,11 @@ public class CypherBreaker {
 	private BlockingQueue<Resultable> queue;
 	private String cypherText;
 	private int maxKeyLength;
+	private volatile boolean isRunning = true;
 	
 	// create QuadGramMap
 	// parses 4grams.txt into a HashMap
-	QuadGramMap quadGramMap = new QuadGramMap();
+	private QuadGramMap quadGramMap = new QuadGramMap();
 	
 	
 	/*============================= Constructors =============================*/
@@ -63,7 +64,7 @@ public class CypherBreaker {
 		// calculate max key length, and round it up
 		maxKeyLength = (int)Math.ceil(cypherText.length() / 2.0);
 		
-		System.out.println("\nMaxKeyLength: " + maxKeyLength);
+		//System.out.println("\nMaxKeyLength: " + maxKeyLength);
 		
 		// run a decryptor for every possible key
 		for(int i = 2; i <= maxKeyLength; i++){
@@ -75,26 +76,39 @@ public class CypherBreaker {
 		
 		// create the ResultSorter Thread
 		Thread resultSorter = new Thread(new ResultSorter(queue, maxKeyLength));
-		
+	
 		// start resultSorter thread
 		resultSorter.start();
+		
+		try {
+			// wait for the thread to finish
+			resultSorter.join();
+			
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		} // try catch
+		
+		// set isRunning to false, cypherBreaker is finished
+		isRunning = false;
 	
 	} // init()
 	
 	
 	/*============================= getIsRunning() =============================*/
 	/**
-	 * Gets the value of isRunning from the ResultSorter Thread.
+	 * Gets the value of isRunning.
+	 * CypherBreaker waits until the ResultSorter Thread is finished.
+	 * When the thread is finished, isRunning is set to false.
 	 * If ResultSorter isn't running, then it has a best result from the broken encryption attempts.
+	 * Which means the cypherBreaker is finished and not running either.
 	 * 
-	 * It gets the value from ResultSorter Thread because if the resultSorter is finished, the CypherBreaker is finished too.
-	 * 
-	 * @return the boolean variable isRunning from the resultSorter Thread.
+	 * @return the boolean variable isRunning.
 	 */
 	
 	public boolean getIsRunning(){
 		
-		return ResultSorter.getIsRunning();
+		return isRunning;
 	} // getIsRunning
 	
 } // class

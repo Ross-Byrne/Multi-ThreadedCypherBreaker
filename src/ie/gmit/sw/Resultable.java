@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+ package ie.gmit.sw;
 
 // An Interface for a result after an encrypted message is attempted to be broken
 

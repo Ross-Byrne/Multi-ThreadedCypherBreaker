@@ -63,7 +63,7 @@ public class TextScorer {
 	/**
 	 * Computes the score by getting the log of the frequency of a Quad Gram divided by the total number of Quad Grams in the Map.
 	 * 
-	 * @param Quad Gram from the Quad Gram Map.
+	 * @param quadgram Quad Gram from the Quad Gram Map.
 	 * @return The log10 of the frequency of the Quad Gram divided by the total number of QuadGrams.
 	 */
 	
