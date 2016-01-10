@@ -27,7 +27,7 @@ The highest scoring result will be displayed once all the results are sorted. Th
 ### Design
 Runner, the class with main() creates an instance of CypherBreaker.
 
-CypherBreaker handles breaking the cypher, so it creates enough Decryptor threads to try every possible key (length of the message / 2). The Decryptor threads use the key they were given to decrypt the cypher text, score it with the textScorer and adds the key used, the score and decrypted text to a Result object and puts it on a blocking queue.
+CypherBreaker handles breaking the cypher, so it creates enough Decryptor threads to try every possible key (length of the message / 2). Each Decryptor thread will use the key they were given to decrypt the cypher text and score it with the TextScorer. They then add the key used, the score and decrypted text to a Result object and puts it on a blocking queue.
 
 CypherBreaker also makes a ResultSorter thread which handles sorting the results that are on the queue and keeps a record of the highest scoring result. Once all the results are processed, the highest scoring result is printed out, showing the score, key used and the decrypted text. To make it easier to read large decrypted text files, the decrypted text is also saved to a text file called brokenEncryptedText.txt.
 
