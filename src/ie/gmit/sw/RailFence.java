@@ -5,6 +5,11 @@ package ie.gmit.sw;
  * involved in each process and shows how the zig-zagging works. Feel free to change / adapt. 
  */
 
+/**
+ * Basic implementation of the Rail Fence Cypher using a 2D char array.
+ * 
+ */
+
 public class RailFence {
 	
 	//***** Encrypt a String called cypherText using an integer key ***** 

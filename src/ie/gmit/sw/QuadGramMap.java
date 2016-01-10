@@ -3,7 +3,14 @@ package ie.gmit.sw;
 import java.util.*;
 import java.util.concurrent.*;
 
-// Class that holds the Quad Gram map used to score how Engish a message is
+// Class that holds the Quad Gram map used to score how English a message is
+
+/**
+ * Holds the Quad Gram Map that is used to score how English a message is.
+ * 
+ * @author Ross Byrne
+ *
+ */
 
 public class QuadGramMap {
 	

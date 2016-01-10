@@ -5,6 +5,12 @@ import java.util.concurrent.*;
 
 // Class for scoring how English a message is
 
+/**
+ * 
+ * Scores how English a message is using a Quad Gram.
+ *
+ */
+
 public class TextScorer {
 	
 	private Map<String, Double> map = new ConcurrentHashMap<String, Double>();

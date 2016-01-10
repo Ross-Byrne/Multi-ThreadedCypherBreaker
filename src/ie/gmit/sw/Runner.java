@@ -5,6 +5,13 @@ import java.util.*;
 
 // Main Runner Class With Main()
 
+/**
+ * Main class that runs the program.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class Runner {
 	
 	public static void main(String[] args) {
@@ -236,6 +243,13 @@ public class Runner {
 		scanner.close();
 		
 	} // main()
+	
+	/**
+	 * Reads a text file line by line and removes all spaces.
+	 * 
+	 * @param fileName The name of the file to read.
+	 * @return The text read from the file as a String.
+	 */
 	
 	// reads a file, removes spaces from text and returns a string containing files text
 	public static String readFile(String fileName){

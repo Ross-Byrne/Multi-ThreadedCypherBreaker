@@ -5,6 +5,13 @@ import java.util.*;
 
 // A Runnable thats single job is to decrypt the encrypted text with the key given to it
 
+/**
+ * A Runnable thats single job is to decrypt encrypted text with the key given to it.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class Decryptor implements Runnable { // producer
 	
 	private BlockingQueue<Resultable> queue;

@@ -5,6 +5,13 @@ import java.util.concurrent.*;
 
 // A Runnable thats single job is to sort the queue of results and find the best scoring one.
 
+/**
+ * A Runnable thats single job is to sort the queue of results and find the best scoring result.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class ResultSorter implements Runnable{
 	
 	private volatile int counter = 0;

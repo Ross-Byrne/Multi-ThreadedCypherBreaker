@@ -4,6 +4,13 @@ import java.util.concurrent.*;
 
 // class that handles the breaking of the cypher
 
+/**
+ * Handles the breaking of the Cypher Text.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class CypherBreaker {
 	
 	private static final int MAX_QUEUE_SIZE = 100;

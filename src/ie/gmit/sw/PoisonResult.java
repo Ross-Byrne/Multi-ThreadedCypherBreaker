@@ -4,6 +4,13 @@ package ie.gmit.sw;
 // Poison Result implements resultable and contains an instance of Result
 // It then delegates results methods
 
+/**
+ * A Poison Result that is used to poison the result blocking queue.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class PoisonResult implements Resultable {
 	
 	// holds an instance of resultable

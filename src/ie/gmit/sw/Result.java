@@ -2,6 +2,13 @@ package ie.gmit.sw;
 
 // Class to store the result after an encrypted message is attempted to be broken
 
+/**
+ * Stores the result after an encrypted message is attempted to be broken.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class Result implements Resultable {
 
 	private String plainText;

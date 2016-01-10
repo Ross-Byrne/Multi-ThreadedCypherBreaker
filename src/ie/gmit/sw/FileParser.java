@@ -4,6 +4,13 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.io.*;
 
+/**
+ * Parses the file containing Quad Grams into A Map.
+ * 
+ * @author Ross Byrne
+ *
+ */
+
 public class FileParser {
 	
 	//put into its own class
